@@ -31,7 +31,7 @@ public class ServiceUsers {
     @PostConstruct
     public void init() {
 
-        userRepository.save(new User("user", passwordEncoder().encode("$9pg%KKS@Q9Z``+{3/}:#N[^X*n*':}y[@jJDff"), "USER"));
+        userRepository.save(new User("user", passwordEncoder().encode("$9pg%KKS@Q9Z``+{3/}:#N[^Xn':}y[@jJDff"), "USER"));
         userRepository.save(new User("admin", passwordEncoder().encode("SBQrzDj59*j'U%Hmr9d%9]BK5zVWb36Xg?g~5Z<r"), "ADMIN"));
     }
 
