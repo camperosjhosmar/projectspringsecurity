@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+
+
+<div class="container">
+    <div sec:authorize="!isAuthenticated()" role="alertdialog">
+        Not Authenticated </br>
+        <a href="/login">Login</a><br/>
+    </div>
+
+
+    <div sec:authorize="isAuthenticated()" role="alertdialog">
+        Authenticated as <span sec:authentication="name"></span>
+        <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm" >
+            <input type="submit" value="Logout"/>
+        </form>
+        <a class="btn btn-primary" href="javascript:document.logoutForm.submit()">Logout</a>
+
+
+        <div sec:authorize="hasPermission(#vars.securedObject,'ADMIN')">Delete</div>
+
+    </div>
+
+    <div sec:authorize="isAuthenticated()" role="alertdialog">
+
+        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+
+        <div sec:authorize="hasRole('USER')" class="alert alert-danger" role="alert"  align="center">Restricted access.</div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

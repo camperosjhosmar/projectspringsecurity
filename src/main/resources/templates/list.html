@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+<body class="container">
+
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <a class="btn btn-primary"  href="javascript:window.history.back()">Back</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarOrder" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/employees/list/sortByPhoneNumberExecutiveDesc">ByPhoneNumberAndExecutiveDesc</a>
+                        <a class="dropdown-item" href="/employees/list/sortByPhoneNumberExecutiveAsc">ByPhoneNumberAndExecutiveAsc</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarViews" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Views
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/employees/list/employeesWithoutPhone">Employees without phone</a>
+                        <a class="dropdown-item" href="/employees/list/executiveEmployees">Executives employees</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <div sec:authorize="isAuthenticated()" th:align="right" style="color: white">
+            Authenticated as <span sec:authentication="name"></span>
+            <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+                <input type="submit" value="Logout"/>
+            </form>
+            <a class="btn btn-primary" href="javascript:document.logoutForm.submit()">Logout</a>
+
+        </div>
+
+    </nav>
+</div>
+
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark bg-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">PhoneNumber</th>
+                <th scope="col">Executive</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </br>
+            </thead>
+
+            <tbody>
+            <tr th:each="emp : ${listEmployees}">
+                <td th:text="${emp.id}" scope="row">ID</td>
+                <td th:text="${emp.name}" scope="row">Pepe Pérez</td>
+                <td th:text="${emp.email}" scope="row">pepe.perez@ole.com</td>
+                <td th:text="${emp.phoneNumber}" scope="row">123456789</td>
+                <td th:text="${emp.executive}" scope="row">es o no es</td>
+                <td><a th:href="@{/employees/edit/{id}(id=${emp.id})}" scope="row">Edit</a></td>
+                <td><a th:href="@{/employees/delete/{id}(id=${emp.id})}" scope="row">Delete</a></td>
+                <br/>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

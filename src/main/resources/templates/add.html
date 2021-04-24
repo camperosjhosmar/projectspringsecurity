@@ -1,0 +1,97 @@
+<!-- plantilla add.html -->
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+<div class="container">
+    <nav class="navbar navbar-dark bg-dark">
+
+        <a class="btn btn-primary" href="javascript:window.history.back()">Back</a>
+
+
+        <div sec:authorize="isAuthenticated()" role="alertdialog" style="color: white" th:align="right">
+
+            Authenticated as <span sec:authentication="name"></span>
+            <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+                <input type="submit" value="Logout"/>
+            </form>
+            <a class="btn btn-primary" href="javascript:document.logoutForm.submit()">Logout</a>
+
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+
+
+    <form method="post" action="#" th:action="${employeeForm.id!=0}?@{/employees/edit/submit}:@{/employees/new/submit}"
+          th:object="${employeeForm}">
+
+        <div class="auto" id="auto" style="display: none">
+            <input type="text" id="id" hidden th:field="*{id}"/>
+            <input type="text" id="address.id" hidden th:field="*{address.id}"/>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Name *</label>
+                <input type="text" class="form-control" required="required" id="name" placeholder="Name"
+                       th:field="*{name}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email">Email *</label>
+                <input type="email" class="form-control"
+                       style="text-transform: lowercase"
+                       pattern="[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,}$"
+                       required="required" id="email"
+                       placeholder="Email"
+                       title="example@domain.com"
+                       th:field="*{email}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPhoneNumber">PhoneNumber</label>
+            <input type="text" id="inputPhoneNumber" class="form-control" placeholder="PhoneNumber"
+                   th:field="*{phoneNumber}">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Address *</label>
+            <input type="text" class="form-control" required="required" id="inputAddress" placeholder="Address"
+                   th:field="*{address.street}">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">City *</label>
+                <input type="text" class="form-control" id="inputCity" required="required" placeholder="City"
+                       th:field="*{address.city}">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Zip *(>= 4 digits)</label>
+                <input type="text" id="inputZip" pattern="[0-9]{4,}$" class="form-control" title="Minimum 4 digits"
+                       required="required" placeholder="Zip"
+                       th:field="*{address.zip}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck" th:field="*{executive}">
+                <label class="form-check-label" for="gridCheck">
+                    Executive
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+</body>
+</html>
