@@ -9,7 +9,7 @@ Rol: ADMIN
 
 user2:
 Username: user
-Password: $9pg%KKS@Q9Z``+{3/}:#N[^Xn':}y[@jJDff
+Password: $9pg%KKS@Q9Z``+{3/}:#N[^X*n*':}y[@jJDff
 Rol:USER
 
 # Class Diagram
